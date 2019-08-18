@@ -103,4 +103,21 @@ public class Main {
         }
         System.out.println("Сортировка insertionSort закончила свою работа за: " + (System.currentTimeMillis()-a));
     }
+    protected static void selectionSort (int[] arr){
+        long a = System.currentTimeMillis();
+        for (int i = 0; i < arr.length; i++) {
+            int min = arr[i];
+            int minId = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] < min) {
+                    min = arr[j];
+                    minId = j;
+                }
+            }
+            int cell = arr[i];
+            arr[i] = min;
+            arr[minId] = cell;
+        }
+        System.out.println("Сортировка selectionSort закончила свою работа за: " + (System.currentTimeMillis()-a));
+    }
 }
