@@ -20,5 +20,6 @@ public class Tests extends Main{
         fillingArr(arr4);
         bubbleSort(arr1);
         insertionSort(arr2);
+        selectionSort(arr3);
     }
 }
