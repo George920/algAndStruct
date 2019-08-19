@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Main {
-    public static final int N = 100000;
+    public static final int N = 1000000;
     public static final int MAXSIZE = 250;
     public static final int MINSIZE = -250;
 
@@ -119,5 +119,78 @@ public class Main {
             arr[minId] = cell;
         }
         System.out.println("Сортировка selectionSort закончила свою работа за: " + (System.currentTimeMillis()-a));
+    }
+
+    private static int[] mergeSortResult(int[] array, int left, int right) {
+        System.currentTimeMillis();
+        if(array!=null) {
+            if (right <= left) return array;
+            int mid = (left + right) / 2;
+            mergeSortResult(array, left, mid);
+            mergeSortResult(array, mid + 1, right);
+            return merge(array, left, mid, right);
+        }
+        return null;
+    }
+
+    private static int[] merge(int[] array, int left, int mid, int right) {
+        int lenghtLeft = mid - left +1;
+        int lenghtRight = right - mid;
+
+        int[] leftArray = new int [lenghtLeft];
+        int[] rightArray = new int [lenghtRight];
+
+        for(int i = 0; i <lenghtLeft; i++){
+            leftArray[i] = array[left+i];
+        }
+        for(int i = 0; i <lenghtRight; i++){
+            rightArray[i] = array[mid+i+1];
+        }
+
+        int leftIndex = 0;
+        int rightIndex = 0;
+
+        for(int i = left; i<right + 1; i++){
+            if(leftIndex<lenghtLeft&&rightIndex<lenghtRight){
+                if(leftArray[leftIndex]<rightArray[rightIndex]){
+                    array[i] = leftArray[leftIndex];
+                    leftIndex++;
+                }
+                else{
+                    array[i] = rightArray[rightIndex];
+                    rightIndex++;
+                }
+            }
+            else if(leftIndex<lenghtLeft){
+                array[i] = leftArray[leftIndex];
+                leftIndex++;
+            }
+            else if(rightIndex<lenghtRight){
+                array[i] = rightArray[rightIndex];
+                rightIndex++;
+            }
+        }
+        return array;
+    }
+
+
+    private static int[] mergeSort(int[] array) {
+        long a = System.currentTimeMillis();
+        if(array == null){
+            return null;
+        }
+        if(array.length<2){
+            return array;
+        }
+
+        int[] arrayB = new int[array.length/2];
+        System.arraycopy(array, 0, arrayB, 0, array.length/2);
+        int[] arrayC = new int[array.length - array.length/2];
+        System.arraycopy(array, array.length/2, arrayC, 0, array.length - array.length/2);
+
+        arrayB = mergeSort(arrayB);
+        arrayC = mergeSort(arrayC);
+
+        return array;
     }
 }
